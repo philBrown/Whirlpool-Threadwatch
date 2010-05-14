@@ -1,0 +1,14 @@
+This is a simple web script to show summaries of selected Whirlpool broadband forum topics, preferably run in a browser's sidebar.
+
+The script implements the Whirlpool forums web service API (http://forums.whirlpool.net.au/forum-replies.cfm?t=1220737).
+
+Users will need to enter their Whirlpool forums API key when prompted. This can be found under their Profile -> Preferences page,
+located at http://whirlpool.net.au/profile/index.cfm?a=preferences.
+
+Once authenticated, users may choose the forum topics they wish to monitor.
+
+Links:
+* Whirlpool Broadband Forums - http://forums.whirlpool.net.au/
+* jQuery - http://jquery.com/
+* jQuery JSONP Plugin - http://code.google.com/p/jquery-jsonp/
+* jQuery Cookie Plugin - http://plugins.jquery.com/project/cookie

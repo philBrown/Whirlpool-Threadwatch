@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+        <title>Whirlpool ThreadWatch Improved</title>
+        <link rel="stylesheet" type="text/css" media="screen" href="style.css?0.9">
+		
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+        <script type="text/javascript" src="jquery.jsonp-1.1.4.min.js"></script>
+        <script type="text/javascript" src="jquery.cookie.js"></script>
+        <script type="text/javascript" src="twi.min.js?0.9.6"></script>
+    </head>
+    
+    <body>
+        
+        <div id="page">
+            <div id="pages">
+                <div class="page" id="config">
+                    <div class="control top container">
+                        <div class="profile"></div>
+                        <ul>
+                            <li><a class="forum_lnk" title="Forums" href="#forum_page">Forums &raquo;</a></li>
+                        </ul>
+                    </div>
+                    <form method="post" action="#" id="config_frm">
+                    <fieldset>
+                        <legend>Config</legend>
+                        <dl>
+                            <dt><label for="api_key">API Key</label></dt>
+                            <dd><input name="api_key" id="api_key" type="text" class="text"></dd>
+                            <dt><label for="max_threads">Max Threads</label></dt>
+                            <dd><input name="max_threads" id="max_threads" type="text" class="text"></dd>
+                            <dt><label for="start_page">Start Page</label></dt>
+                            <dd>
+                                <select name="start_page" id="start_page">
+                                    <option value="1">Config</option>
+                                    <option value="2">Forums</option>
+                                    <option value="3">Threads</option>
+                                </select>
+                            </dd>
+							<dt><label for="refresh_interval">Refresh Interval (minutes)</label></dt>
+							<dd><input type="text" id="refresh_interval" name="refresh_interval" class="text"></dd>
+                            <dd><input type="submit" id="config_save_btn" value="Save"></dd>
+                        </dl>
+                    </fieldset>
+                    </form>
+                    <div class="control bottom container">
+                        <ul>
+                            <li><a class="forum_lnk" title="Forums" href="#forum_page">Forums &raquo;</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="page" id="forum_page">
+                    <div class="control top container">
+                        <div class="profile"></div>
+                        <ul>
+                            <li><a class="config_lnk" title="Config" href="#config">&laquo; Config</a></li>
+                            <li><a class="thread_lnk" title="Threads" href="#thread_page">Threads &raquo;</a></li>
+                        </ul>
+                    </div>
+                    <div id="topics">Loading...</div>
+                    <div class="control bottom container">
+                        <ul>
+                            <li><a class="config_lnk" title="Config" href="#config">&laquo; Config</a></li>
+                            <li><a class="thread_lnk" title="Threads" href="#thread_page">Threads &raquo;</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="page" id="thread_page">
+                    <div class="control top container">
+                        <div class="profile"></div>
+                        <ul>
+                            <li><a class="forum_lnk" title="Forums" href="#forum_page">&laquo; Forums</a></li>
+                        </ul>
+                    </div>
+                    <div id="threads"></div>
+                    <div class="control bottom container">
+                        <ul>
+                            <li><a class="forum_lnk" title="Forums" href="#forum_page">&laquo; Forums</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
