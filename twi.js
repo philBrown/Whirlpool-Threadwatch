@@ -25,7 +25,7 @@
  *
  * @copyright Copyright (c) 2010 Phil Brown <phil@philipbrown.id.au>
  * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
- * @version   0.9.8
+ * @version   1.0
  * @link      http://forums.whirlpool.net.au/forum-replies.cfm?t=1220737
  */
 
