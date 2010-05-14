@@ -25,7 +25,7 @@
  *
  * @copyright Copyright (c) 2010 Phil Brown <phil@philipbrown.id.au>
  * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
- * @version   0.9.7
+ * @version   0.9.8
  * @link      http://forums.whirlpool.net.au/forum-replies.cfm?t=1220737
  */
 
@@ -34,7 +34,7 @@ $.jsonp.setup({
     callbackParameter: 'jsonp',
     timeout: 60000,
     error: function(xOptions, textStatus) {
-        alert(textStatus + ': ' + xOptions.url + '?' + $.param(xOptions.data));
+        alert('An error of type "' + textStatus + '" occurred for URL "' + xOptions.url + '" with parameters "' + $.param(xOptions.data) + '"');
     }
 });
 
@@ -67,18 +67,24 @@ wpDate.prototype.status = function(now) {
     } else {
         stat.age = this.date.toLocaleString();
     }
-
-    if (stat.diff <= 600000) {
-        stat.bg = '#4f5ba7';
-    } else if (stat.diff > 600000 && stat.diff <= 3600000) {
-        stat.bg = '#3a437b';
-    } else if (stat.diff > 3600000 && stat.diff <= 7200000) {
-        stat.bg = '#4a517b';
-    } else if (stat.diff > 7200000 && stat.diff <= 21600000) {
-        stat.bg = '#565b7b';
-    } else {
-        stat.bg = '#62667b';
+    
+    switch(true) {
+        case stat.diff <= 600000 :
+            stat.cat = 'age1';
+            break;
+        case stat.diff > 600000 && stat.diff <= 3600000 :
+		    stat.cat = 'age2';
+			break;
+		case stat.diff > 3600000 && stat.diff <= 7200000 :
+		    stat.cat = 'age3';
+			break;
+		case stat.diff > 7200000 && stat.diff <= 21600000 :
+		    stat.cat = 'age4';
+			break;
+		default :
+		    stat.cat = 'age5';
     }
+
     return stat;
 };
 
@@ -89,14 +95,12 @@ var config = {
     maxThreads: 30,
     refreshInterval: 1,
     interval: 60000,
-	showUser: true,
     cookie: {
         key: 'mc_wp_twi_api_key',
         forums: 'mc_wp_twi_forums',
         maxThreads: 'mc_wp_twi_mt',
         startPage: 'mc_wp_twi_sp',
-        refreshInterval: 'mc_wp_twi_ri',
-		showUser: 'mc_wp_twi_su'
+        refreshInterval: 'mc_wp_twi_ri'
     },
     load: function() {
         this.key = $.cookie(this.cookie.key);
@@ -104,7 +108,6 @@ var config = {
         this.startPage = parseInt($.cookie(this.cookie.startPage)) || 2;
         this.setRefreshInterval($.cookie(this.cookie.refreshInterval));
         this.forums = $.cookie(this.cookie.forums);
-		this.showUser = $.cookie(this.cookie.showUser);
     },
     save: function() {
         $.cookie(this.cookie.key, this.key, {expires:999, path:'/'});
@@ -112,7 +115,6 @@ var config = {
         $.cookie(this.cookie.startPage, this.startPage, {expires:999, path:'/'});
         $.cookie(this.cookie.refreshInterval, this.refreshInterval, {expires:999, path:'/'});
         $.cookie(this.cookie.forums, this.forums, {expires:999, path:'/'});
-		$.cookie(this.cookie.showUser, this.showUser, {expires:999, path:'/'});
     },
     setRefreshInterval: function(ri) {
         this.refreshInterval = parseInt(ri) || 1;
@@ -156,14 +158,13 @@ var control = {
                 control.urls = data.URL;
                 control.user = data.USER;
                 $('#topics').empty();
-				if (config.showUser) {
-					$('.profile').html(
-						$('<a>').attr({
-							href: control.urls.USER_PROFILE.replace(/%d$/, control.user.ID),
-							target: '_CONTENT'
-						}).html('<strong>' + control.user.NAME + '</strong>')
-					);
-				}
+                $('.profile').html(
+                    $('<a>').attr({
+                        href: control.urls.USER_PROFILE.replace(/%d$/, control.user.ID),
+						title: control.user.NAME,
+                        target: '_CONTENT'
+                    }).html('<strong>My User Page</strong>')
+                );
                 var sections = {};
                 $.each(data.FORUM, function(i, forum) {
                     if (!sections[forum.SECTION]) {
@@ -212,7 +213,7 @@ var control = {
                     var pd = new wpDate(thread.LAST_DATE);
                     var stat = pd.status();
                     
-                    var container = $('<dl>').addClass('container').css('backgroundColor', stat.bg).appendTo('#threads');
+                    var container = $('<dl>').addClass('container').addClass(stat.cat).appendTo('#threads');
                     var dt = $('<dt>').addClass('container_title').appendTo(container);
                     var fname = thread.FORUM_NAME;
                     if (thread.GROUP) {
@@ -262,14 +263,13 @@ var control = {
     }
 };
 
-jQuery(document).ready(function($){
+jQuery(function($) {
     
     control.init(function() {
         $('#api_key').val(config.key);
         $('#max_threads').val(config.maxThreads);
         $('#start_page').val(config.startPage);
         $('#refresh_interval').val(config.refreshInterval);
-		$('#show_user').get(0).checked = config.showUser;
     });
 
     $('#config_frm').submit(function(e) {
@@ -277,7 +277,6 @@ jQuery(document).ready(function($){
         config.maxThreads = parseInt($('#max_threads').val());
         config.startPage = parseInt($('#start_page').val());
         config.setRefreshInterval($('#refresh_interval').val());
-		config.showUser = $('#show_user').val() || 0;
         config.save();
 
         control.getInitialData(function() {
