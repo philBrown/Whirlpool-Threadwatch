@@ -74,16 +74,16 @@ wpDate.prototype.status = function(now) {
             stat.cat = 'age1';
             break;
         case stat.diff > 600000 && stat.diff <= 3600000 :
-		    stat.cat = 'age2';
-			break;
-		case stat.diff > 3600000 && stat.diff <= 7200000 :
-		    stat.cat = 'age3';
-			break;
-		case stat.diff > 7200000 && stat.diff <= 21600000 :
-		    stat.cat = 'age4';
-			break;
-		default :
-		    stat.cat = 'age5';
+            stat.cat = 'age2';
+            break;
+        case stat.diff > 3600000 && stat.diff <= 7200000 :
+            stat.cat = 'age3';
+            break;
+        case stat.diff > 7200000 && stat.diff <= 21600000 :
+            stat.cat = 'age4';
+            break;
+        default :
+            stat.cat = 'age5';
     }
 
     return stat;
@@ -162,7 +162,7 @@ var control = {
                 $('.profile').html(
                     $('<a>').attr({
                         href: control.urls.USER_PROFILE.replace(/%d$/, control.user.ID),
-						title: control.user.NAME,
+                        title: control.user.NAME,
                         target: '_CONTENT'
                     }).html('<strong>My User Page</strong>')
                 );
