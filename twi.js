@@ -162,8 +162,7 @@ var control = {
                 $('.profile').html(
                     $('<a>').attr({
                         href: control.urls.USER_PROFILE.replace(/%d$/, control.user.ID),
-                        title: control.user.NAME,
-                        target: '_CONTENT'
+                        title: control.user.NAME
                     }).html('<strong>My User Page</strong>')
                 );
                 var sections = {};
@@ -221,17 +220,14 @@ var control = {
                         fname += ' - ' + thread.GROUP;
                     }
                     $('<a>').attr('href', control.urls.THREADS.replace(/%d$/, thread.FORUM_ID))
-                            .attr('target', '_CONTENT')
                             .html(fname)
                             .appendTo(dt);
                     var dd = $('<dd>').addClass('container_item').appendTo(container);
                     $('<a>').attr('href', control.urls.REPLIES_PAGE.replace(/%d/, thread.ID).replace(/%d/, '-1#bottom'))
-                            .attr('target', '_CONTENT')
                             .html(thread.TITLE)
                             .appendTo(dd);
                     dd = $('<dd>').addClass('container_item').appendTo(container).html(' ' + stat.age);
                     $('<a>').attr('href', control.urls.USER_PROFILE.replace(/%d$/, thread.LAST.ID))
-                            .attr('target', '_CONTENT')
                             .html('<strong>' + thread.LAST.NAME + '</strong>')
                             .prependTo(dd);
 
